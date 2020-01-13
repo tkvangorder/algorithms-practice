@@ -11,6 +11,12 @@ import java.util.List;
 public interface ListSorter<T extends Comparable<T>> {
 
 	/**
+	 * Return the name of the sorting algorithm used. This is used by the bootstrap to log sampling results.
+	 * @return A simple string that describes the algorithm
+	 */
+	String getAlgorithm();
+
+	/**
 	 * This method should rearrange the passed in list such that the elements of the list are sequential using
 	 * the natural order.
 	 *

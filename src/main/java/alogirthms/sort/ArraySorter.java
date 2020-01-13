@@ -9,13 +9,18 @@ package alogirthms.sort;
 public interface ArraySorter<T extends Comparable<T>> {
 
 	/**
+	 * Return the name of the sorting algorithm used. This is used by the bootstrap to log sampling results.
+	 * @return A simple string that describes the algorithm
+	 */
+	String getAlgorithm();
+
+	/**
 	 * This method should rearrange the passed in array such that the elements of the list are sequential using
 	 * the natural order.
 	 *
 	 * @param list A list to be sorted.
 	 */
 	void sort(T[] array);
-
 
 	/**
 	 * A default method that will check if an array is in its natural, sorted order.

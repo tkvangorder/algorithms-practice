@@ -4,7 +4,7 @@ package common;
  * A stop watch that can be started/stopped. This will keep track of a total elapsed time.
  * This class is not thread-safe.
  */
-public class StopWatch {
+public class Stopwatch {
 
 	long totalElapsedTime = 0;
 	long startTime = 0;
@@ -15,10 +15,14 @@ public class StopWatch {
 		startTime = System.currentTimeMillis();
 	}
 
-	public void stop() {
-		if (!running) return;
+	public long stop() {
+		if (!running) {
+			return 0;
+		}
 		running = false;
-		totalElapsedTime += (System.currentTimeMillis() - startTime);
+		long total = (System.currentTimeMillis() - startTime);
+		totalElapsedTime += total;
+		return total;
 	}
 
 	public long getTotalElapsedTime() {
@@ -26,5 +30,10 @@ public class StopWatch {
 			stop();
 		}
 		return totalElapsedTime;
+	}
+
+	public void reset() {
+		running = false;
+		totalElapsedTime = 0;
 	}
 }
