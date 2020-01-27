@@ -1,5 +1,6 @@
 package alogirthms.sort;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,7 +18,10 @@ public class SortBootStrap {
 
 	public static void main(String[] args) {
 		Integer[] sample = randomIntegers(SAMPLE_SIZE);
-		runExperiment(new SelectionSort<Integer>(), sample);
+		List<Integer> sampleAsList = Arrays.asList(sample);
+		runExperiment(new SelectionSortArray<Integer>(), sample);
+		runExperiment(new SelectionSortList<Integer>(), sampleAsList);
+
 	}
 
 	/**
@@ -33,10 +37,8 @@ public class SortBootStrap {
 	private static <T extends Comparable<T>> void runExperiment(ArraySorter<T> sorter, T[] sample) {
 
 		logger.info("-------------------------------------------------------------------------------------");
-		logger.info("ArraySorter [" + sorter.getAlgorithm() + "]");
-		logger.info("-------------------------------------------------------------------------------------");
-		logger.info("Sample Size [" + sample.length + "] running [" + SORT_ITERATIONS + "] Iterations");
-		logger.info("-------------------------------------------------------------------------------------");
+		logger.info("ArraySorter [" + sorter.getAlgorithm() + "] Sample Size [" + sample.length + "] iterations [" + SORT_ITERATIONS + "]");
+		logger.debug("");
 
 		Stopwatch stopwatch = new Stopwatch();
 		for (int index=0;index < SORT_ITERATIONS; index++) {
@@ -44,11 +46,12 @@ public class SortBootStrap {
 			stopwatch.start();
 			sorter.sort(sample);
 			long iterationTime = stopwatch.stop();
-			logger.info("Iteration [" + index + "] : Time [" + iterationTime + "ms], Is Sample Sorted? [" + sorter.isSorted(sample) + "]");
+			logger.debug("Iteration [" + index + "] : Time [" + iterationTime + "ms], Is Sample Sorted? [" + sorter.isSorted(sample) + "]");
 		}
-		logger.info("-------------------------------------------------------------------------------------");
+		logger.debug("");
 		logger.info("ArraySorter [" + sorter.getAlgorithm() + "] - Total Run Time : [" + stopwatch.getTotalElapsedTime() + "ms]");
 		logger.info("-------------------------------------------------------------------------------------");
+		logger.info("");
 	}
 
 	/**
@@ -64,9 +67,8 @@ public class SortBootStrap {
 	private static <T extends Comparable<T>> void runExperiment(ListSorter<T> sorter, List<T> sample) {
 
 		logger.info("-------------------------------------------------------------------------------------");
-		logger.info("Running Sort Experiment on ArraySorter [" + sorter.getAlgorithm() + "]");
-		logger.info("Sample Size [" + sample.size() + "] running [" + SORT_ITERATIONS + "] Iterations");
-		logger.info("-------------------------------------------------------------------------------------");
+		logger.info("ListSorter [" + sorter.getAlgorithm() + "] Sample Size [" + sample.size() + "] iterations [" + SORT_ITERATIONS + "]");
+		logger.debug("");
 
 		Stopwatch stopwatch = new Stopwatch();
 		for (int index=0;index < SORT_ITERATIONS; index++) {
@@ -74,11 +76,12 @@ public class SortBootStrap {
 			stopwatch.start();
 			sorter.sort(sample);
 			long iterationTime = stopwatch.stop();
-			logger.info("Iteration [" + index + "] : Time [" + iterationTime + "], Is Sample Sorted? [" + sorter.isSorted(sample) + "]");
+			logger.debug("Iteration [" + index + "] : Time [" + iterationTime + "ms], Is Sample Sorted? [" + sorter.isSorted(sample) + "]");
 		}
+		logger.debug("");
+		logger.info("ListSorter [" + sorter.getAlgorithm() + "] - Total Run Time : [" + stopwatch.getTotalElapsedTime() + "ms]");
 		logger.info("-------------------------------------------------------------------------------------");
-		logger.info(" Total Run Time : [" + stopwatch.getTotalElapsedTime() + "ms]");
-		logger.info("-------------------------------------------------------------------------------------");
+		logger.info("");
 	}
 
 	/**

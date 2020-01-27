@@ -15,6 +15,14 @@ public interface ArraySorter<T extends Comparable<T>> {
 	String getAlgorithm();
 
 	/**
+	 * Return the estimated time complexity for the sorting algorithm.
+	 * Example: "O(n^2)"
+	 *
+	 * @return A simple string representing the time complexity.
+	 */
+	String getTimeComplexityEstimate();
+
+	/**
 	 * This method should rearrange the passed in array such that the elements of the list are sequential using
 	 * the natural order.
 	 *

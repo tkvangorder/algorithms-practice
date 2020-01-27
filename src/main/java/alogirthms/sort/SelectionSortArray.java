@@ -1,10 +1,15 @@
 package alogirthms.sort;
 
-public class SelectionSort<T extends Comparable<T>> implements ArraySorter<T> {
+public class SelectionSortArray<T extends Comparable<T>> implements ArraySorter<T> {
 
 	@Override
 	public String getAlgorithm() {
-		return "SelectionSort O(N^2) (N^2/2 Compares + N Exchanges)";
+		return "SelectionSort";
+	}
+
+	@Override
+	public String getTimeComplexityEstimate() {
+		return "O((N^2)/2)";
 	}
 
 	@Override
