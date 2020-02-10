@@ -14,7 +14,8 @@ public class EmptyMain {
 	private static final Logger logger = LoggerFactory.getLogger("algorithms");
 
 	public static void main(String[] args) {
-		new EmptyMain().method();
+		EmptyMain solution = new EmptyMain();
+		solution.method();
 	}
 
 	public void method() {
