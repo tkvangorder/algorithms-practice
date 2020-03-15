@@ -1,5 +1,7 @@
 package common;
 
+import java.io.InputStream;
+
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 
@@ -15,4 +17,17 @@ public class FileHelper {
 		return new Out(rootPath + name);
 	}
 
+	public static InputStream getInputStreamForClassResource(Class<?> clazz, String resourceName) {
+		if (clazz == null) {
+			throw new IllegalArgumentException("The class cannot be null");
+		}
+		if (resourceName == null) {
+			throw new IllegalArgumentException("The resource name cannot be null");
+		}
+		InputStream in = clazz.getResourceAsStream(resourceName);
+		if (in == null) {
+			throw new IllegalArgumentException("The resource [" + resourceName + "] could not be loaded from the class path");
+		}
+		return in;
+	}
 }
