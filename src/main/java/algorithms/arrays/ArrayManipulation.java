@@ -49,6 +49,8 @@ public class ArrayManipulation {
 	 */
 	static long arrayManipulation(int n, int[][] queries) {
 
+		//First record all differences (on the edge of each command)
+		//O(number of queries)
 		long max = Long.MIN_VALUE;
 		long[] array = new long[n];
 		for (int queryIndex = 0; queryIndex < queries.length; queryIndex++) {
@@ -58,6 +60,8 @@ public class ArrayManipulation {
 			}
 		}
 
+		//Then compute the index of each element using the previous value summed with the
+		//recorded difference: O(n)
 
 		for (int index = 1; index < array.length; index++) {
 			array[index] +=array[index-1];
