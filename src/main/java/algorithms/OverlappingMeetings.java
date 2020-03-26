@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.princeton.cs.algs4.In;
+import common.In;
 
 /**
  * This is a problem where you are trying to find the minimum number of meeting rooms to accommodate the schedule

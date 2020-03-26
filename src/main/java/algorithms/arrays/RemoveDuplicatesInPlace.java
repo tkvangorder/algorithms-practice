@@ -3,7 +3,7 @@ package algorithms.arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.princeton.cs.algs4.In;
+import common.In;
 
 /**
  * This exercise is to remove duplicates (in-place) for a sorted array.

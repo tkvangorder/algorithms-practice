@@ -6,7 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.princeton.cs.algs4.In;
+import common.In;
 import edu.princeton.cs.algs4.Stack;
 
 /**

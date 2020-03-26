@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import common.FileHelper;
-import edu.princeton.cs.algs4.In;
+import common.In;
 import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
