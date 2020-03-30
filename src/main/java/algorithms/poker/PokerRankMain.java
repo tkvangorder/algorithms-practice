@@ -227,6 +227,7 @@ public class PokerRankMain {
 		return
 				(clubs & hearts & diamonds) > 0 ||
 				(clubs & hearts & spades) > 0 ||
+				(clubs & diamonds & spades) > 0 ||
 				(hearts & spades & diamonds) > 0;
 	}
 
