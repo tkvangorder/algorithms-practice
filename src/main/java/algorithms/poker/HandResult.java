@@ -15,6 +15,7 @@ import common.Assert;
  */
 public class HandResult implements Comparable<HandResult> {
 
+	public static HandResult LOWEST = new HandResult(HandRank.HIGH_CARD, Arrays.asList(CardValue.TWO, CardValue.THREE, CardValue.FOUR, CardValue.FIVE, CardValue.SEVEN));
 	private final HandRank rank;
 	private final List<CardValue> cardValues;
 

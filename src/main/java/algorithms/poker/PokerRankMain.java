@@ -23,6 +23,10 @@ public class PokerRankMain {
 	public static void main(String[] args) {
 		PokerRankMain ranker = new PokerRankMain();
 
+		HandResult result1 = ranker.rankHand(stringsToCards(new String[] {"KD", "6D", "3D", "3S", "9D", "4C", "AD"}));
+		HandResult result2 = ranker.rankHand(stringsToCards(new String[] {"4S", "3C", "3D", "3S", "9D", "4C", "AD"}));
+		
+		int compare = result1.compareTo(result2);
 		//First just some basic testing of the various ranks.
 		String[][] hands = {
 			{"5C", "3C", "2C", "9S", "4C", "JC", "AC"},
@@ -42,7 +46,7 @@ public class PokerRankMain {
 			ranker.logAndRankHand(stringsToCards(hand));
 		}
 		
-		int numberOfHands = 100000;
+		int numberOfHands = 10;
 		int numberOfPlayers = 7;
 		//Texas hold'em rules 5 community cards + 2 for each player (7 players) (over 10 rounds)
 		for (int index =0; index < numberOfHands; index++) {
@@ -53,8 +57,31 @@ public class PokerRankMain {
 			logger.info("----------------------------------------------------------------------------------------------");
 			logger.info("Community Cards : " + Arrays.toString(communityCards.toArray()));
 			logger.info("----------------------------------------------------------------------------------------------");
+
+			HandResult max = HandResult.LOWEST;
+			List<Integer> winningPlayers = new ArrayList<>(3);
 			for (int playerIndex = 0; playerIndex < numberOfPlayers; playerIndex++) {
-				ranker.logAndRankTexasHoldem(playerIndex +1, deck.drawCards(2), communityCards);
+				List<Card> playerHand = deck.drawCards(2);
+				List<Card> combined = new ArrayList<> (playerHand);
+				combined.addAll(communityCards);
+				stopwatch.start();
+				HandResult rank = ranker.rankHand(combined);				
+				stopwatch.stop();
+				int rankCompare = rank.compareTo(max);
+				if (rankCompare > 0) {
+					max = rank;
+					winningPlayers.clear();
+					winningPlayers.add(playerIndex);
+				}  else if (rankCompare == 0) {
+					winningPlayers.add(playerIndex);
+				}
+				logger.info("Player : " + playerIndex + " : " + Arrays.toString(playerHand.toArray()) +  " - The rank is : " + rank);				
+			}
+			logger.info("----------------------------------------------------------------------------------------------");
+			if (winningPlayers.size() == 1) {
+				logger.info("Player # " + winningPlayers.get(0) + " is the winner with a rank of " + max);
+			} else {
+				logger.info("Players  " + Arrays.toString(winningPlayers.toArray()) + " chop the pot with a rank of " + max);				
 			}
 		}
 		
@@ -280,6 +307,7 @@ public class PokerRankMain {
 
 		int threeOfKind = (clubs & hearts & diamonds) | (clubs & hearts & spades) |  (clubs & diamonds & spades) | (hearts & spades & diamonds);
 		if (threeOfKind > 0) {
+			threeOfKind = Integer.highestOneBit(threeOfKind);
 			CardValue threeValue = CardValue.maskToEnum(threeOfKind);
 			int otherCards =  (clubs | hearts | diamonds | spades) & ~threeOfKind;
 			int fourthMask = Integer.highestOneBit(otherCards);
@@ -302,12 +330,12 @@ public class PokerRankMain {
 		int pair = (clubs & hearts) | (clubs & diamonds) | (clubs & spades) |
 				(hearts & diamonds) | (hearts & spades) |
 				(diamonds & spades);
-		if (Integer.bitCount(pair) == 2) {
+		if (Integer.bitCount(pair) > 1) {
 			int firstPairMask = Integer.highestOneBit(pair);
 			int secondPairMask = Integer.highestOneBit(pair & ~firstPairMask);
 			CardValue firstPair = CardValue.maskToEnum(firstPairMask);
 			CardValue secondPair = CardValue.maskToEnum(secondPairMask);			
-			CardValue fifth = CardValue.maskToEnum(Integer.highestOneBit((clubs | hearts | diamonds | spades) &~pair));
+			CardValue fifth = CardValue.maskToEnum(Integer.highestOneBit((clubs | hearts | diamonds | spades) & ~(firstPairMask | secondPairMask)));
 			return new HandResult(HandRank.TWO_PAIR, Arrays.asList(
 					firstPair, firstPair,
 					secondPair, secondPair,
