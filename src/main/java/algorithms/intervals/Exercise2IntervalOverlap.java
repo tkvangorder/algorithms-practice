@@ -1,4 +1,4 @@
-package chapter1.section2;
+package algorithms.intervals;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package chapter1.section2;
+package algorithms.math;
 
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.StdDraw;

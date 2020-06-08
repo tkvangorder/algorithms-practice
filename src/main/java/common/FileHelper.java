@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.Out;
 
 public class FileHelper {
 
-	private static final String rootPath = "/home/tyler/work/sandbox/algs4-data/";
+	private static final String rootPath = "/Users/tyler.vangorder/work/algorithms/data/";
 	
 	public static In alogDataFile(String name) {
 		return new In(rootPath + name);

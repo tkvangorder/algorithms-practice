@@ -1,4 +1,4 @@
-package chapter1.section2;
+package algorithms.intervals;
 
 import java.util.HashSet;
 import java.util.Set;

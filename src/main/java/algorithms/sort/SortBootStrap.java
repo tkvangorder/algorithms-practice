@@ -1,6 +1,5 @@
 package algorithms.sort;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,10 +16,12 @@ public class SortBootStrap {
 	private static final int SORT_ITERATIONS = 20;
 
 	public static void main(String[] args) {
+		//Integer[] sample = randomSmallIntegers(20);
 		Integer[] sample = randomIntegers(SAMPLE_SIZE);
-		List<Integer> sampleAsList = Arrays.asList(sample);
+		//List<Integer> sampleAsList = Arrays.asList(sample);
 		runExperiment(new SelectionSortArray<Integer>(), sample);
-		runExperiment(new SelectionSortList<Integer>(), sampleAsList);
+		runExperiment(new QuickSortArray<Integer>(), sample);
+		//runExperiment(new SelectionSortList<Integer>(), sampleAsList);
 
 	}
 
@@ -97,6 +98,14 @@ public class SortBootStrap {
 		return randomIntegers;
 	}
 
+	private static Integer[] randomSmallIntegers(int size) {
+		Integer[] randomIntegers = new Integer[size];
+		for (int index=0; index < size; index++) {
+			randomIntegers[index] = StdRandom.uniform(100);
+		}
+		return randomIntegers;
+	}
+	
 	/**
 	 * This method will randomly shuffle all elements of the sample. This method is useful because we do not want
 	 * the garbage collector to skew our performance results as we test each algorithm. Rather than allocating a new

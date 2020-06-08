@@ -1,4 +1,4 @@
-package chapter1.section3;
+package algorithms.math;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import algorithms.stack.Exercise4BalancedParens;
 import common.In;
 import edu.princeton.cs.algs4.Stack;
 
@@ -24,7 +25,7 @@ public class MathExpressionEvaluator {
 	public static void main(String[] args) {
 
 		//Read in a list of expressions from the file, one expression for each line.
-		In input = new In(Exercise4BalancedParams.class, "mathExpressions.txt");
+		In input = new In(Exercise4BalancedParens.class, "mathExpressions.txt");
 		String[] expressions = input.readAllLines();
 		for (String expression : expressions) {
 			validateExpression(expression);

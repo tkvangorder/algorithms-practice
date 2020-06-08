@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.math;
 
 import java.util.Random;
 
@@ -14,7 +14,6 @@ public class BalancedCoin {
 		int iterations = 2000000;
 		double trueCount = 0;
 
-		// TODO Auto-generated method stub
 		for (int index = 0; index < iterations; index++) {
 			if (flipCoin()) {
 				trueCount++;

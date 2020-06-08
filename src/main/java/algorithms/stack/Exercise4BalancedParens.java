@@ -1,4 +1,4 @@
-package chapter1.section3;
+package algorithms.stack;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import common.In;
 import edu.princeton.cs.algs4.Stack;
 
-public class Exercise4BalancedParams {
+public class Exercise4BalancedParens {
 
 	private static final Logger logger = LoggerFactory.getLogger("algorithms");
 	public static void main(String[] args) {
-		In input = new In(Exercise4BalancedParams.class, "exerciseMatchBraces.txt");
+		In input = new In(Exercise4BalancedParens.class, "exerciseMatchBraces.txt");
 		String[] expressions = input.readAllStrings();
 		for (String expression : expressions) {
 			validateExpression(expression);

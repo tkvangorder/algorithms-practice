@@ -9,7 +9,7 @@ public class SelectionSortArray<T extends Comparable<T>> implements ArraySorter<
 
 	@Override
 	public String getTimeComplexityEstimate() {
-		return "O((N^2)/2)";
+		return "O(N^2)";
 	}
 
 	@Override

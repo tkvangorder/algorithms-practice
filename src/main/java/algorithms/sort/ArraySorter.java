@@ -73,6 +73,6 @@ public interface ArraySorter<T extends Comparable<T>> {
 	 * @return True if the first element (a) is less than the second element (b)
 	 */
 	default boolean less(T a, T b) {
-		return a.compareTo(b) > 0;
+		return a.compareTo(b) < 0;
 	}
 }

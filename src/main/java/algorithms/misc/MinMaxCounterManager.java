@@ -1,4 +1,4 @@
-package chapter1.section3;
+package algorithms.misc;
 
 import java.util.Map;
 import java.util.SortedMap;

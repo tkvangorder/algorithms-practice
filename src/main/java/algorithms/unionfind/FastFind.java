@@ -1,7 +1,7 @@
 package algorithms.unionfind;
 
 /**
- * This implements the union/find contract with a quick find O(1), but the union will be O(2n)
+ * This implements the union/find contract with a quick find O(1), but the union will be O(n)
  *
  * The "nodeToComponents[]" uses the node ID as an index into the array where the value is the component that the node belongs to.
  *
