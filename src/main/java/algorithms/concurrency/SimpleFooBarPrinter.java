@@ -1,8 +1,7 @@
-package concurrency;
+package algorithms.concurrency;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +29,11 @@ import org.slf4j.LoggerFactory;
  * NOTE: The funky contract for the methods foo and bar were dictated by leetcode, we
  *       have to go through some coding gymnastics to setup the test harness.
  */
-public class SemaphoreFooBarPrinter {
+public class SimpleFooBarPrinter {
 	private static final Logger logger = LoggerFactory.getLogger("algorithms");
 
 	public static void main(String[] args) {
-		SemaphoreFooBarPrinter solution = new SemaphoreFooBarPrinter(40);
+		SimpleFooBarPrinter solution = new SimpleFooBarPrinter(40);
 
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 
@@ -57,34 +56,70 @@ public class SemaphoreFooBarPrinter {
 				e.printStackTrace();
 			}
 		});
+		executor.shutdown();
 	}
 
 	private final int printCount;
-	private final Semaphore fooSemaphore = new Semaphore(0);
-	private final Semaphore barSemaphore = new Semaphore(1);
 
-	public SemaphoreFooBarPrinter(int n) {
+	//This uses a boolean toggle where:
+	//    true == ok to print "foo"
+	//   false == ok to print "bar"
+	// Initial state is set to print "foo"
+	private boolean fooOrBarToggle = true;
+
+
+	public SimpleFooBarPrinter(int n) {
 		this.printCount = n;
 	}
 
 	public void foo(Runnable printFoo) throws InterruptedException {
 
 		for (int index = 0; index < printCount; index++) {
+
+			printGate(true); //Wait until it is ok to print "foo".
 			// printFoo.run() outputs "foo". Do not change or remove this line.
-			barSemaphore.acquire();
 			printFoo.run();
-			fooSemaphore.release();
+			flipPrintToggle(); //Flip the print toggle and notify both threads to wake up.
 		}
 	}
 
 	public void bar(Runnable printBar) throws InterruptedException {
 
 		for (int index = 0; index < printCount; index++) {
-
+			printGate(false); //Wait until it is ok to print "bar".
 			// printBar.run() outputs "bar". Do not change or remove this line.
-			fooSemaphore.acquire();
 			printBar.run();
-			barSemaphore.release();
+			flipPrintToggle(); //Flip the print toggle and notify both threads to wake up.
 		}
 	}
+
+	/**
+	 * This method will pause the thread if the toggle is not set to the same value passed
+	 * in. Once the flag has been flipped (and threads have been notified) this method will
+	 * exit
+	 *
+	 * This strategy only works because one thread is responsible for "foo" and one for
+	 * "bar". If there were more threads, we would not be able to use this approach.
+	 *
+	 * @param toggle Desired toggle state.
+	 */
+	private synchronized void printGate(boolean toggle) {
+		while (fooOrBarToggle != toggle) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * This method flips the toggle and notifies all waiting threads.
+	 */
+	private synchronized void flipPrintToggle() {
+		fooOrBarToggle = !fooOrBarToggle;
+		notifyAll();
+	}
+
 }

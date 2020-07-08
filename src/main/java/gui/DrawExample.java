@@ -1,7 +1,6 @@
-package algorithms;
+package gui;
 
 import edu.princeton.cs.algs4.StdRandom;
-import gui.VisualAccumulator;
 
 public class DrawExample {
 
