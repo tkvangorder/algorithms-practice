@@ -12,3 +12,6 @@ ifdef::env-github[]
 :note-caption: :bulb:
 :tip-caption: :mag:
 endif::[]
+
+= Algorithms Practice
+
