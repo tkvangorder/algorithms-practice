@@ -36,6 +36,7 @@ public class FirstUniqueCharacter2 {
     }
 
 
+    @SuppressWarnings("DataFlowIssue")
     public static Character firstNonRepeatingCharacter(String input) {
         if (input == null || input.isEmpty()) {
             return null;
