@@ -3,6 +3,9 @@ package algorithms.strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This version of fist unique character will allow ANY valid unicode character and return the first non-repeating
  * character.
@@ -14,7 +17,6 @@ public class FirstUniqueCharacter2 {
     private static final Logger logger = LoggerFactory.getLogger("algorithms");
 
     public static void main(String[] args) {
-        // I would normally use a logging framework or facade like slf4j. But not available in coderpad.
 
         String[] inputs = new String[]{
                 "aaaabbbbbCCCC",               // No non-repeating should return null.
@@ -35,30 +37,39 @@ public class FirstUniqueCharacter2 {
 
 
     public static Character firstNonRepeatingCharacter(String input) {
-
         if (input == null || input.isEmpty()) {
             return null;
         }
 
-        //Count character references, note this sacrifices memory for speed, in that we pre-allocate a 65K array
-        //of bytes. So 65K x 1 byte.
+        //Max size of a char is 16 bit Unicode character.
 
-        //Max size of a char is 16 bit Unicode character, create an array big enough to use the character as a lookup
-        //into the array where we count references. To minimize memory, we use a byte which is 8 bits, all we care
-        //about is if there is more than one reference, to not overflow the reference count, we simply stop after the
-        //count is 2.
-        byte[] characterReferences = new byte[65536];
-
+        //Count character references, this algorithm tries to balance memory usage while still allowing any unicode
+        //character. This takes a page out of Java's compact strings, in that statistically most characters can be
+        //represented as 8 bits.
+        //
+        //Therefore, we use an array of 256 bytes to represent the most common characters. And if a character is outside
+        //that range, a HashMap is created on-demand and used for those references.
+        byte[] characterReferences = new byte[256];
+        Map<Character, Byte> overflow = null;
         char[] characters = input.toCharArray();
+
         for (char c : characters) {
-            if (characterReferences[c] < 2) {
+            if (c < characterReferences.length && characterReferences[c] < 2) {
                 characterReferences[c]++;
+            } else {
+                if (overflow == null) {
+                    overflow = new HashMap<>();
+                }
+                overflow.merge(c, (byte) 1, (b1, b2) -> (byte) 2);
             }
         }
 
         //Now find the first character that is non-repeating.
         for (char c : characters) {
-            if (characterReferences[c] == 1) {
+
+            if (c < characterReferences.length && characterReferences[c] == 1) {
+                return c;
+            } else if (c >= characterReferences.length && overflow.get(c) == 1) {
                 return c;
             }
         }
