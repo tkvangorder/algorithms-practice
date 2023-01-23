@@ -56,6 +56,9 @@ public class FirstUniqueCharacter2 {
 
         for (char c : characters) {
             if (c < characterReferences.length && characterReferences[c] < 2) {
+                //The character is used as an index into the array, we only care that there is more than one character,
+                //so we do not keep incrementing the value after it has reached 2 because we do not want to overflow
+                //the byte.
                 characterReferences[c]++;
             } else {
                 if (overflow == null) {
@@ -67,7 +70,6 @@ public class FirstUniqueCharacter2 {
 
         //Now find the first character that is non-repeating.
         for (char c : characters) {
-
             if (c < characterReferences.length && characterReferences[c] == 1) {
                 return c;
             } else if (c >= characterReferences.length && overflow.get(c) == 1) {
