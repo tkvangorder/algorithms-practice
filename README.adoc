@@ -1,7 +1,7 @@
 :sectlinks:
 :sectanchors:
 :stylesheet: asciidoctor.css
-// If not rendered on github, we use fonts for the captions, otherwise, we assign github emojis. DO NOT PUT A BLANK LINE BEFORE THIS, the ICONS don't render.
+// If not rendered on GitHub, we use fonts for the captions, otherwise, we assign GitHub emojis. DO NOT PUT A BLANK LINE BEFORE THIS, the ICONS don't render.
 ifndef::env-github[]
 :icons: font
 endif::[]
@@ -14,4 +14,12 @@ ifdef::env-github[]
 endif::[]
 
 = Algorithms Practice
+
+== Setup
+
+This project has a dependencies on edu.princeton.algs4 which is not published on Maven Central, to get this working you will need to:
+
+1. Clone `https://github.com/kevin-wayne/algs4`
+2. `cd algs4`
+3. `mvn install`
 
