@@ -14,4 +14,18 @@ public class ArrayUtils {
 
 		return builder.toString();
 	}
+
+	public static String arrayToString(Object[] array) {
+		StringBuilder builder = new StringBuilder("[");
+		for (int index = 0; index < array.length; index++) {
+			if (index > 0) {
+				builder.append(",");
+			}
+			builder.append('"').append(array[index]).append('"');
+		}
+		builder.append("]");
+
+		return builder.toString();
+	}
+
 }
