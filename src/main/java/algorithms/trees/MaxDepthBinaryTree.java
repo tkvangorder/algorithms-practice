@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Given a binary tree, find its maximum depth.
- *
+ * <P/>
  * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
- *
+ * <P/>
  * Note: A leaf is a node with no children.
  * <PRE>
  * Example:
@@ -38,8 +38,8 @@ public class MaxDepthBinaryTree {
 		TreeNode root = listToBinaryTree(1,2,3,null,null,4,5,6,7,8,9,10,11);
 
 		logger.info("------------------------------------------------------------------------------------");
-		logger.info("\n" + root.toString());
-		logger.info("One-liner Depth : " + solution.maxDepth(root));
+		logger.info("\n" + root);
+		logger.info("One-liner Depth : " + solution.maxDepthOneLiner(root));
 		logger.info("Depth           : " + solution.maxDepth(root));
 		logger.info("Verbose Depth   : " + solution.maxDepthVerbose(root));
 	}
@@ -48,8 +48,8 @@ public class MaxDepthBinaryTree {
 	 * This is a simple one line solution. This will make a recursive call for each null node
 	 * and therefore will not be as efficient as it could be.
 	 *
-	 * @param root
-	 * @return maxDepthl
+	 * @param root Root node
+	 * @return maxDepth
 	 */
 	public int maxDepthOneLiner(TreeNode root) {
 		return root == null ? 0 : java.lang.Math.max(maxDepthOneLiner(root.left), maxDepthOneLiner(root.right)) + 1;
@@ -61,8 +61,8 @@ public class MaxDepthBinaryTree {
 	/**
 	 * This is a more efficient solution as it will not recursively call null nodes.
 	 *
-	 * @param root
-	 * @return maxDepthl
+	 * @param root Root node
+	 * @return maxDepth
 	 */
 	public int maxDepth(TreeNode root) {
 		if (root == null) {
@@ -82,9 +82,9 @@ public class MaxDepthBinaryTree {
 	/**
 	 * A similar, more verbose/explicit implementation where currentDepth is passed as an argument.
 	 *
-	 * @param node
-	 * @param currentDepth
-	 * @return
+	 * @param node Root node
+	 * @param currentDepth current depth of tree
+	 * @return maxDepth
 	 */
 	public int computeMaxDepth(TreeNode node, int currentDepth) {
 		int leftDepth = currentDepth;
@@ -101,11 +101,8 @@ public class MaxDepthBinaryTree {
 	/**
 	 * This uses a breadth first approach to populating a binary tree from an integer iterator.
 	 *
-	 *
-	 *
-	 * @param queue
-	 * @param root
-	 * @return
+	 * @param source array
+	 * @return The root tree node
 	 */
 	private static TreeNode listToBinaryTree(Integer...source) {
 		Iterator<Integer> index = Arrays.asList(source).iterator();
@@ -155,12 +152,12 @@ public class MaxDepthBinaryTree {
 			buffer.append(value);
 			buffer.append('\n');
 			if (left == null) {
-				buffer.append(childrenPrefix + "├── null\n");
+				buffer.append(childrenPrefix).append("├── null\n");
 			} else {
 				left.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
 			}
 			if (right == null) {
-				buffer.append(childrenPrefix + "├── null\n");
+				buffer.append(childrenPrefix).append("├── null\n");
 			} else {
 				right.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
 			}

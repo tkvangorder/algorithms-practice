@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class NumberOfIslands {
 	private static final Logger logger = LoggerFactory.getLogger("algorithms");
 
-	private static Random random = new Random();
+	private static final Random random = new Random();
 	
 	public static void main(String[] args) {
 		NumberOfIslands solution = new NumberOfIslands();
@@ -71,7 +71,7 @@ public class NumberOfIslands {
         		if (grid[y][x] == '1') {
         			islandCount++;
         			//This is destructive to the grid, we mark visited as '0'
-        			depthFirstTraversal(grid, x,y);
+        			depthFirstTraversal(grid,y, x);
         		}
         	}
     	}

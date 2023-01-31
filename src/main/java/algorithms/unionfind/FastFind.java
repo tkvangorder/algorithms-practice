@@ -2,9 +2,9 @@ package algorithms.unionfind;
 
 /**
  * This implements the union/find contract with a quick find O(1), but the union will be O(n)
- *
+ * <P/>
  * The "nodeToComponents[]" uses the node ID as an index into the array where the value is the component that the node belongs to.
- *
+ * <P/>
  * The find, is a simple, single indexed lookup. However, the union requires that we iterate over the collection, setting component
  * (assigned to node 2, to all the nodes that have the same value as node 1.
  *
@@ -13,13 +13,13 @@ package algorithms.unionfind;
  */
 public class FastFind implements UnionFind {
 
-	private int nodeToComponents[];
+	final private int[] nodeToComponents;
 	private int count;
 
 	public FastFind(int nodeSize) {
 		nodeToComponents = new int[nodeSize];
 		for (int index = 0; index < nodeSize; index++) {
-			nodeToComponents[index] = 0;
+			nodeToComponents[index] = index;
 		}
 		count = nodeSize;
 	}
