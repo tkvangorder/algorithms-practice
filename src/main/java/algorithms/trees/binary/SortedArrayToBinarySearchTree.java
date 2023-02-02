@@ -1,4 +1,4 @@
-package algorithms.trees;
+package algorithms.trees.binary;
 
 import java.util.Arrays;
 
@@ -35,13 +35,13 @@ public class SortedArrayToBinarySearchTree {
 		SortedArrayToBinarySearchTree solution = new SortedArrayToBinarySearchTree();
 
 		int[] input = new int[] {-10,-3,0,5,9,11,14};
-		TreeNode root = solution.sortedArrayToBST(input);
+		BinaryTreeNode root = solution.sortedArrayToBST(input);
 		logger.info("input : " + Arrays.toString(input));
 		logger.info("\n" + root);
 
 	}
 
-	public TreeNode sortedArrayToBST(int[] nums) {
+	public BinaryTreeNode sortedArrayToBST(int[] nums) {
 		if (nums == null) {
 			return null;
 		}
@@ -57,51 +57,16 @@ public class SortedArrayToBinarySearchTree {
 	 * @param maxBound The maximum bound for deriving the binary tree
 	 * @return A balanced binary tree.
 	 */
-	public TreeNode sortedArrayToBST(int[] nums, int minBound, int maxBound) {
+	public BinaryTreeNode sortedArrayToBST(int[] nums, int minBound, int maxBound) {
 		int mid = (minBound + maxBound) / 2;
-		TreeNode node = new TreeNode(nums[mid]);
+		BinaryTreeNode node = new BinaryTreeNode(nums[mid]);
 		if (minBound <= mid -1) {
-			node.left = sortedArrayToBST(nums, minBound, mid - 1);
+			node.setLeft(sortedArrayToBST(nums, minBound, mid - 1));
 		}
 		if (mid + 1 <= maxBound) {
-			node.right = sortedArrayToBST(nums, mid + 1, maxBound);
+			node.setRight(sortedArrayToBST(nums, mid + 1, maxBound));
 		}
 		return node;
-	}
-
-
-	public static class TreeNode {
-
-		int value;
-		TreeNode left;
-		TreeNode right;
-
-		public TreeNode(int value) {
-			this.value = value;
-		}
-
-		@Override
-		public String toString() {
-			StringBuilder buffer = new StringBuilder(50);
-			print(buffer, "", "");
-			return buffer.toString();
-		}
-
-		private void print(StringBuilder buffer, String prefix, String childrenPrefix) {
-			buffer.append(prefix);
-			buffer.append(value);
-			buffer.append('\n');
-			if (left == null) {
-				buffer.append(childrenPrefix + "├── null\n");
-			} else {
-				left.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
-			}
-			if (right == null) {
-				buffer.append(childrenPrefix + "├── null\n");
-			} else {
-				right.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
-			}
-		}
 	}
 
 }
