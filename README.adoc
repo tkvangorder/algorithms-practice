@@ -16,7 +16,7 @@ endif::[]
 = Algorithms Practice
 
 == Setup
-
+This is a test.
 This project has a dependencies on edu.princeton.algs4 which is not published on Maven Central, to get this working you will need to:
 
 1. Clone `https://github.com/kevin-wayne/algs4`
